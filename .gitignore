@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
+
+# Downloaded datasets (fetched on demand by ml/data.py)
+data/
+
+# Web build
+web/node_modules/
+web/dist/
+web/.vite/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
