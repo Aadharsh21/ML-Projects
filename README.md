@@ -114,7 +114,8 @@ flowchart LR
 The browser engine walks the exported LightGBM trees with LightGBM's own missing-value rules and ports its TreeSHAP
 algorithm, so a web page gets the same probabilities (to 1e-9) and the
 same explanations (to 1e-8) as the Python library. The Gaussian mixture code matches scikit-learn step for step.
-Details in [`web/README.md`](web/README.md).
+A web page needs one import, `https://cdn.jsdelivr.net/gh/Aadharsh21/ML-Projects@v2.0.0/web/dist/index.js`, which
+loads the models from the same release. Details in [`web/README.md`](web/README.md).
 
 ```
 ml/                  Python package: data loading, one module per project, LightGBM exporter
@@ -122,6 +123,8 @@ notebooks/           v2 notebooks (executed); v1/ holds the originals
 tests/               pytest: features, splits, exporter round trips, v1 replicas, Shapley maths
 web/public/data/     exported models, test data and evaluation results
 web/src/ml/          dependency-free TypeScript engine
+web/src/site/        one loader per project for web pages, plus an in-browser parity self-test
+web/dist/            the engine compiled to ES modules, which websites import from jsDelivr
 web/tests/           Vitest parity tests against fixtures exported by Python
 docs/images/         figures used in this README
 ```
