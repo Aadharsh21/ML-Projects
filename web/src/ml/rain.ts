@@ -32,15 +32,33 @@ export interface RainPreprocessing {
   compass_vectors: [number, number][];
 }
 
+/** One model's scores on a split; the counts use a 50% cut-off. */
+export interface RainScores {
+  accuracy: number;
+  roc_auc: number;
+  avg_precision: number;
+  brier: number;
+  log_loss: number;
+  precision: number;
+  recall: number;
+  f1: number;
+  tp: number;
+  fp: number;
+  fn: number;
+  tn: number;
+}
+
 export interface RainMeta {
   stations: StationMeta[];
   compass: string[];
   features: string[];
   groups: { label: string; features: string[] }[];
   splits: Record<"train" | "val" | "test", { rows: number; start: string; end: string; rain_rate: number }>;
-  models: Record<string, { label: string; val: Record<string, number>; test: Record<string, number> }>;
+  /** majority, persistence, v1_logistic, v2_logistic, v2_lightgbm */
+  models: Record<string, { label: string; val: RainScores; test: RainScores }>;
   best_iteration: number;
-  ci95: Record<string, [number, number]>;
+  /** 95% bootstrap intervals for the v2 model on the test days */
+  ci95: Record<"accuracy" | "roc_auc", [number, number]>;
   calibration: { lo: number; hi: number; mean_predicted: number; observed: number; count: number }[];
   importance: { group: string; mean_abs_shap: number }[];
   per_station: { station: string; days: number; rain_rate: number; accuracy: number; roc_auc: number | null }[];
