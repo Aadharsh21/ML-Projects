@@ -7,7 +7,7 @@ __pycache__/
 .venv/
 
 # Downloaded datasets (fetched on demand by ml/data.py)
-data/
+/data/
 
 # Web build
 web/node_modules/
