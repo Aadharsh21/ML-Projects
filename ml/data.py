@@ -100,7 +100,7 @@ def load_weather() -> pd.DataFrame:
     rainfall, present in older copies of the file) is removed because it is the
     answer in disguise.
     """
-    df = pd.read_csv(fetch("weather"))
+    df = pd.read_csv(fetch("weather"), float_precision="round_trip")
     df = df.drop(columns=["RISK_MM"], errors="ignore")
     df = df.dropna(subset=["RainToday", "RainTomorrow"]).reset_index(drop=True)
     df["Date"] = pd.to_datetime(df["Date"])
@@ -109,13 +109,13 @@ def load_weather() -> pd.DataFrame:
 
 def load_creditcard() -> pd.DataFrame:
     """284,807 card transactions over two days in September 2013, sorted by time."""
-    df = pd.read_csv(fetch("creditcard"))
+    df = pd.read_csv(fetch("creditcard"), float_precision="round_trip")
     return df.sort_values("Time", kind="stable").reset_index(drop=True)
 
 
 def load_insurance() -> pd.DataFrame:
     """1,338 US customers with demographics and yearly medical charges."""
-    return pd.read_csv(fetch("insurance"))
+    return pd.read_csv(fetch("insurance"), float_precision="round_trip")
 
 
 def load_iris() -> pd.DataFrame:
