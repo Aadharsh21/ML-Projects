@@ -311,7 +311,6 @@ def run(out_dir: Path = OUT_DIR, fixture_path: Path = FIXTURE_PATH) -> dict:
             for name, (lat, lon) in sorted(STATIONS.items())
         ],
         "compass": COMPASS,
-        "compass_vectors": [list(compass_vectors()[d]) for d in COMPASS],
         "features": FEATURES,
         "groups": [{"label": label, "features": cols} for label, cols in GROUPS],
         "splits": {"train": window(tr), "val": window(va), "test": window(te)},
@@ -326,6 +325,12 @@ def run(out_dir: Path = OUT_DIR, fixture_path: Path = FIXTURE_PATH) -> dict:
 
     model = compact(export_booster(booster, num_iteration=booster.best_iteration))
     model["base_value"] = float(contrib[0, -1])
+    # Everything the browser needs to rebuild the features, at full precision.
+    model["preprocessing"] = {
+        "stations": {name: list(latlon) for name, latlon in STATIONS.items()},
+        "compass": COMPASS,
+        "compass_vectors": [list(compass_vectors()[d]) for d in COMPASS],
+    }
     out_dir.mkdir(parents=True, exist_ok=True)
     write_json(out_dir / "model.json", model, digits=None)
     write_json(out_dir / "days.json", encode_days(test_df), digits=None)
