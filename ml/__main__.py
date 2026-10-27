@@ -6,7 +6,7 @@ import argparse
 import importlib
 import time
 
-PROJECTS = ["rain", "fraud"]
+PROJECTS = ["rain", "fraud", "insurance"]
 
 
 def main() -> None:
