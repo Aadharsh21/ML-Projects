@@ -38,9 +38,13 @@ def matched_confusion(species: np.ndarray, labels: np.ndarray) -> dict:
     (Hungarian algorithm), plus the share of flowers that land in their species' cluster."""
     cm = confusion_matrix(species, labels)
     rows, cols = linear_sum_assignment(-cm)
-    order = list(cols) + [c for c in range(cm.shape[1]) if c not in cols]
-    matched = cm[:, order]
-    return {"matrix": matched.tolist(), "matched_accuracy": float(np.trace(matched) / cm.sum())}
+    matched_to = dict(zip(rows, cols))
+    order = [matched_to[r] for r in range(cm.shape[0]) if r in matched_to]
+    order += [c for c in range(cm.shape[1]) if c not in order]
+    return {
+        "matrix": cm[:, order].tolist(),
+        "matched_accuracy": float(cm[rows, cols].sum() / cm.sum()),
+    }
 
 
 def sweep(X: np.ndarray, species: np.ndarray, seed: int = 0) -> list[dict]:

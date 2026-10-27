@@ -19,6 +19,13 @@ def test_matched_confusion_with_more_clusters_than_species():
     assert len(out["matrix"][0]) == 4
 
 
+def test_matched_confusion_with_fewer_clusters_than_species():
+    species = np.array([0, 0, 1, 1, 2, 2, 2])
+    labels = np.array([0, 0, 0, 0, 1, 1, 1])  # species 0 and 1 merged
+    out = clustering.matched_confusion(species, labels)
+    assert out["matched_accuracy"] == 5 / 7  # 2 of species 0 (or 1) + all 3 of species 2
+
+
 def test_sweep_inertia_falls_as_k_grows():
     X = data.load_iris()[clustering.FEATURES].to_numpy()
     species = data.load_iris()["species"].cat.codes.to_numpy()
