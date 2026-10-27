@@ -138,7 +138,7 @@ def features(df: pd.DataFrame) -> pd.DataFrame:
     X["RainToday"] = df["RainToday"].map({"Yes": 1.0, "No": 0.0}).astype(float)
     X["Latitude"] = df["Location"].map(lambda s: STATIONS[s][0]).astype(float)
     X["Longitude"] = df["Location"].map(lambda s: STATIONS[s][1]).astype(float)
-    doy = df["Date"].dt.dayofyear.astype(float)
+    doy = df["Date"].dt.day_of_year.astype(float)
     X["SeasonSin"] = np.sin(2 * math.pi * doy / 365.25)
     X["SeasonCos"] = np.cos(2 * math.pi * doy / 365.25)
     vectors = compass_vectors()

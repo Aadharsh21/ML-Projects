@@ -93,6 +93,16 @@ def fetch(name: str) -> Path:
     return target
 
 
+def _read_csv(path: Path) -> pd.DataFrame:
+    """Parse floats exactly (correctly rounded), so values exported to JSON and read
+    back by the browser are bit-identical. pandas 3.1+ does this by default and
+    deprecates the option."""
+    major, minor = (int(x) for x in pd.__version__.split(".")[:2])
+    if (major, minor) >= (3, 1):
+        return pd.read_csv(path)
+    return pd.read_csv(path, float_precision="round_trip")
+
+
 def load_weather() -> pd.DataFrame:
     """Daily weather observations from 49 Australian stations, 2007-2017.
 
@@ -100,7 +110,7 @@ def load_weather() -> pd.DataFrame:
     rainfall, present in older copies of the file) is removed because it is the
     answer in disguise.
     """
-    df = pd.read_csv(fetch("weather"), float_precision="round_trip")
+    df = _read_csv(fetch("weather"))
     df = df.drop(columns=["RISK_MM"], errors="ignore")
     df = df.dropna(subset=["RainToday", "RainTomorrow"]).reset_index(drop=True)
     df["Date"] = pd.to_datetime(df["Date"])
@@ -109,13 +119,13 @@ def load_weather() -> pd.DataFrame:
 
 def load_creditcard() -> pd.DataFrame:
     """284,807 card transactions over two days in September 2013, sorted by time."""
-    df = pd.read_csv(fetch("creditcard"), float_precision="round_trip")
+    df = _read_csv(fetch("creditcard"))
     return df.sort_values("Time", kind="stable").reset_index(drop=True)
 
 
 def load_insurance() -> pd.DataFrame:
     """1,338 US customers with demographics and yearly medical charges."""
-    return pd.read_csv(fetch("insurance"), float_precision="round_trip")
+    return _read_csv(fetch("insurance"))
 
 
 def load_iris() -> pd.DataFrame:
