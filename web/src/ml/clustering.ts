@@ -93,23 +93,31 @@ export function kmeans(X: Matrix, init: Matrix, maxIter = 300): KMeansState {
 }
 
 /** k-means++ seeding: each new center is drawn with probability proportional to its
- * squared distance from the nearest center chosen so far. */
-export function kmeansPlusPlus(X: Matrix, k: number, rand: () => number): Matrix {
+ * squared distance from the nearest center chosen so far. With `trials` > 1 it is the
+ * greedy variant scikit-learn uses: draw that many candidates and keep the one that
+ * leaves the smallest total squared distance. */
+export function kmeansPlusPlus(X: Matrix, k: number, rand: () => number, trials = 1): Matrix {
   const centers: Matrix = [X[Math.floor(rand() * X.length)]];
-  const d2 = X.map((x) => sqDist(x, centers[0]));
+  let d2 = X.map((x) => sqDist(x, centers[0]));
   while (centers.length < k) {
     const total = d2.reduce((a, b) => a + b, 0);
-    let r = rand() * total;
-    let pick = X.length - 1;
-    for (let i = 0; i < X.length; i++) {
-      r -= d2[i];
-      if (r <= 0) {
-        pick = i;
-        break;
+    let best = { pick: -1, potential: Infinity, d2 };
+    for (let t = 0; t < trials; t++) {
+      let r = rand() * total;
+      let pick = X.length - 1;
+      for (let i = 0; i < X.length; i++) {
+        r -= d2[i];
+        if (r <= 0) {
+          pick = i;
+          break;
+        }
       }
+      const next = X.map((x, i) => Math.min(d2[i], sqDist(x, X[pick])));
+      const potential = next.reduce((a, b) => a + b, 0);
+      if (potential < best.potential) best = { pick, potential, d2: next };
     }
-    centers.push(X[pick]);
-    for (let i = 0; i < X.length; i++) d2[i] = Math.min(d2[i], sqDist(X[i], X[pick]));
+    centers.push(X[best.pick]);
+    d2 = best.d2;
   }
   return centers.map((c) => [...c]);
 }

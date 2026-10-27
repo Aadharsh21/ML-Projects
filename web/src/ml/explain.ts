@@ -1,6 +1,6 @@
 /** Turning rain-model SHAP values into a probability waterfall and a plain-English reason. */
-import { sigmoid } from "./lgbm";
-import type { Observation } from "./rain";
+import { sigmoid } from "./lgbm.js";
+import type { Observation } from "./rain.js";
 
 const signedFixed = (v: number, digits: number) => (v >= 0 ? "+" : "\u2212") + Math.abs(v).toFixed(digits);
 
