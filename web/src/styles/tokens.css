@@ -1,0 +1,142 @@
+/*
+ * Design tokens.
+ *
+ * Ink on paper: deep navy ink on white, colour reserved for data and for each
+ * project's identity accent. Archivo (variable width) carries the interface,
+ * condensed for titles and live readouts; Newsreader sets the long-form notes.
+ * Data colours come from a palette validated for colour-vision deficiency.
+ */
+
+:root {
+  color-scheme: light;
+
+  --page: #ffffff;
+  --surface: #f4f6f9;
+  --surface-2: #e9edf2;
+  --land: #eef1f5;
+  --ink: #13233a;
+  --ink-2: #44536a;
+  --ink-3: #5b687d;
+  --rule: #dce2ea;
+  --rule-strong: #c2cad6;
+  --focus: #2a78d6;
+  --shadow: 0 1px 2px rgba(19, 35, 58, 0.06), 0 8px 24px rgba(19, 35, 58, 0.08);
+
+  /* project identity accents */
+  --rain: #2a78d6;
+  --fraud: #e34948;
+  --insurance: #1baf7a;
+  --iris: #6250d6;
+
+  /* data: categorical slots (validated order) */
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-6: #008300;
+  --series-7: #6250d6;
+  --series-8: #e34948;
+
+  /* data: diverging poles and neutral midpoint */
+  --pos: #2a78d6;
+  --neg: #eb6834;
+  --mid: #f0efec;
+
+  /* status (always paired with an icon or label) */
+  --good: #0ca30c;
+  --good-text: #006300;
+  --critical: #d03b3b;
+
+  --font-ui: "Archivo Variable", "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-prose: "Newsreader Variable", "Newsreader", Georgia, "Times New Roman", serif;
+
+  /* type scale (classic: 12 14 16 18 21 24 36 48 60 72) */
+  --t-xs: 0.75rem;
+  --t-sm: 0.875rem;
+  --t-md: 1rem;
+  --t-lg: 1.125rem;
+  --t-xl: 1.3125rem;
+  --t-2xl: 1.5rem;
+  --t-3xl: 2.25rem;
+  --t-4xl: 3rem;
+  --t-5xl: 3.75rem;
+  --t-6xl: 4.5rem;
+
+  --gutter: 24px;
+  --max: 1200px;
+  --radius-s: 6px;
+  --radius-m: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0c1421;
+    --surface: #131e2f;
+    --surface-2: #1b293d;
+    --land: #17233a;
+    --ink: #e7edf5;
+    --ink-2: #aab6c7;
+    --ink-3: #8a97aa;
+    --rule: #22314a;
+    --rule-strong: #33445f;
+    --focus: #6aa8f0;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+
+    --rain: #3987e5;
+    --fraud: #e66767;
+    --insurance: #199e70;
+    --iris: #9085e9;
+
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --series-5: #d55181;
+    --series-6: #008300;
+    --series-7: #9085e9;
+    --series-8: #e66767;
+
+    --pos: #3987e5;
+    --neg: #d95926;
+    --mid: #383835;
+
+    --good-text: #0ca30c;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0c1421;
+  --surface: #131e2f;
+  --surface-2: #1b293d;
+  --land: #17233a;
+  --ink: #e7edf5;
+  --ink-2: #aab6c7;
+  --ink-3: #8a97aa;
+  --rule: #22314a;
+  --rule-strong: #33445f;
+  --focus: #6aa8f0;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+
+  --rain: #3987e5;
+  --fraud: #e66767;
+  --insurance: #199e70;
+  --iris: #9085e9;
+
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --series-6: #008300;
+  --series-7: #9085e9;
+  --series-8: #e66767;
+
+  --pos: #3987e5;
+  --neg: #d95926;
+  --mid: #383835;
+
+  --good-text: #0ca30c;
+}

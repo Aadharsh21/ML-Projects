@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
@@ -11,10 +12,11 @@ export default defineConfig({
   build: {
     target: "es2022",
     rollupOptions: {
-      input: {
-        home: root("./index.html"),
-        ...Object.fromEntries(pages.map((p) => [p, root(`./${p}/index.html`)])),
-      },
+      input: Object.fromEntries(
+        [["home", root("./index.html")], ...pages.map((p) => [p, root(`./${p}/index.html`)])].filter(([, file]) =>
+          existsSync(file),
+        ),
+      ),
     },
   },
   test: {
