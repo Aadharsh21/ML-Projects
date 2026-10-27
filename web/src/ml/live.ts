@@ -4,7 +4,7 @@
  * trained on. Open-Meteo values come from weather models rather than the stations'
  * own instruments, so live forecasts are approximate.
  */
-import type { NumericField, Observation, WindField } from "../../ml/rain";
+import type { NumericField, Observation, WindField } from "./rain";
 
 const HOURLY = [
   "temperature_2m", "relative_humidity_2m", "pressure_msl", "cloud_cover",

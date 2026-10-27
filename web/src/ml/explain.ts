@@ -1,6 +1,8 @@
-import { sigmoid } from "../../ml/lgbm";
-import type { Observation } from "../../ml/rain";
-import { fmt } from "../../lib/format";
+/** Turning rain-model SHAP values into a probability waterfall and a plain-English reason. */
+import { sigmoid } from "./lgbm";
+import type { Observation } from "./rain";
+
+const signedFixed = (v: number, digits: number) => (v >= 0 ? "+" : "\u2212") + Math.abs(v).toFixed(digits);
 
 export interface Step {
   label: string;
@@ -33,7 +35,7 @@ export function describe(label: string, obs: Observation, compass: string[], sta
   const n = obs.numeric;
   const v = (x: number, unit: string, digits = 0) => (Number.isNaN(x) ? "not recorded" : `${x.toFixed(digits)}${unit}`);
   const diff = (a: number, b: number, unit: string, digits = 0) =>
-    Number.isNaN(a) || Number.isNaN(b) ? "not recorded" : `${fmt.signed(a - b, digits)}${unit}`;
+    Number.isNaN(a) || Number.isNaN(b) ? "not recorded" : `${signedFixed(a - b, digits)}${unit}`;
   const dir = (i: number | null) => (i === null ? "not recorded" : compass[i]);
   switch (label) {
     case "Humidity at 3pm": return v(n.Humidity3pm, "%");
