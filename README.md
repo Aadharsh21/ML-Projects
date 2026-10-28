@@ -8,6 +8,8 @@ Four machine learning projects, rebuilt from my first notebooks into properly ev
 in Python, graded the way it would be used, and exported with a small TypeScript engine so it can run live in a
 browser with no server.
 
+**Try all four live: [aadharsh-ml-projects.netlify.app](https://aadharsh-ml-projects.netlify.app)**
+
 | Project | Question | v1 | v2 |
 |---|---|---|---|
 | [Rain tomorrow](#rain-tomorrow) | Will it rain tomorrow at one of 49 Australian weather stations? | 84.2% accuracy, ROC AUC 0.859 | **86.1% accuracy, ROC AUC 0.892** |
@@ -36,7 +38,7 @@ the same split as v1.
 - **Calibrated and explained.** When it says 70% it rains on about 70% of those days, and SHAP values break every
   forecast into the readings that drove it. Errors fall by 12% and Brier score from 0.114 to 0.101.
 
-Read more: [notebook](notebooks/01-rain-tomorrow.ipynb), [code](ml/rain.py), [v1](notebooks/v1/LOGISTICWEATHER.ipynb)
+[Try it live](https://aadharsh-ml-projects.netlify.app/rain). Read more: [notebook](notebooks/01-rain-tomorrow.ipynb), [code](ml/rain.py), [v1](notebooks/v1/LOGISTICWEATHER.ipynb)
 
 ## Fraud radar
 
@@ -59,7 +61,7 @@ false alarms in 9.3 hours, costing more in analyst time than the fraud it stops.
 
 <img src="docs/images/fraud-savings.png" alt="Net savings against alert threshold for three review costs" width="80%">
 
-Read more: [notebook](notebooks/02-fraud-detection.ipynb), [code](ml/fraud.py), [v1](notebooks/v1/CREDITFRAUD.ipynb)
+[Try it live](https://aadharsh-ml-projects.netlify.app/fraud). Read more: [notebook](notebooks/02-fraud-detection.ipynb), [code](ml/fraud.py), [v1](notebooks/v1/CREDITFRAUD.ipynb)
 
 ## Insurance costs
 
@@ -79,7 +81,7 @@ smokers with a BMI of 30 or more average $41,558, other smokers $21,363 and non-
   charge 86% of the time.
 - **Exact explanations.** With six inputs, Shapley values against the average customer are computed exactly.
 
-Read more: [notebook](notebooks/03-insurance-costs.ipynb), [code](ml/insurance.py), [v1](notebooks/v1/LINEARINSURANCE.ipynb)
+[Try it live](https://aadharsh-ml-projects.netlify.app/insurance). Read more: [notebook](notebooks/03-insurance-costs.ipynb), [code](ml/insurance.py), [v1](notebooks/v1/LINEARINSURANCE.ipynb)
 
 ## Clustering
 
@@ -94,7 +96,7 @@ Can an algorithm that never sees the labels recover the three iris species from 
 - **Match the model to the shape.** k-means assumes round clusters; a full-covariance Gaussian mixture fits the
   elongated species and puts 96.7% of flowers in their species' cluster (k-means: 89.3%).
 
-Read more: [notebook](notebooks/04-iris-clustering.ipynb), [code](ml/clustering.py), [v1](notebooks/v1/clustering.ipynb)
+[Try it live](https://aadharsh-ml-projects.netlify.app/clustering). Read more: [notebook](notebooks/04-iris-clustering.ipynb), [code](ml/clustering.py), [v1](notebooks/v1/clustering.ipynb)
 
 ---
 
@@ -116,6 +118,10 @@ algorithm, so a web page gets the same probabilities (to 1e-9) and the
 same explanations (to 1e-8) as the Python library. The Gaussian mixture code matches scikit-learn step for step.
 A web page needs one import, `https://cdn.jsdelivr.net/gh/Aadharsh21/ML-Projects@v2.0.0/web/dist/index.js`, which
 loads the models from the same release. Details in [`web/README.md`](web/README.md).
+
+The live site, [aadharsh-ml-projects.netlify.app](https://aadharsh-ml-projects.netlify.app), is built this way. Its
+code is in [machine-learning-portfolio](https://github.com/Aadharsh21/machine-learning-portfolio), and its
+[How it works](https://aadharsh-ml-projects.netlify.app/how-it-works) page reruns the parity checks in your browser.
 
 ```
 ml/                  Python package: data loading, one module per project, LightGBM exporter
