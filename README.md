@@ -165,3 +165,7 @@ results are in [`requirements-lock.txt`](requirements-lock.txt).
 
 The first versions of all four projects are kept unchanged in [`notebooks/v1`](notebooks/v1) for comparison. Each
 v2 notebook opens by rebuilding its v1 model and explaining what it got wrong.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
